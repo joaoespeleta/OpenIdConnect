@@ -5,12 +5,12 @@ import { getFirestore, getDoc, doc } from "https://www.gstatic.com/firebasejs/12
 
 // Configurações do Firebase
 const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+  apiKey: "AIzaSyCPWC4oGYk1wKUd0pMrPGWKSYFv5GfKXus",
+  authDomain: "autenticacao-712a3.firebaseapp.com",
+  projectId: "autenticacao-712a3",
+  storageBucket: "autenticacao-712a3.firebasestorage.app",
+  messagingSenderId: "864513546164",
+  appId: "1:864513546164:web:ac434f7184ce136ca784e1"
 };
 
 // Inicializa o Firebase
@@ -36,6 +36,7 @@ onAuthStateChanged(auth, (user) => {
                 document.getElementById('loggedUserFName').innerText = userData.firstName;
                 document.getElementById('loggedUserEmail').innerText = userData.email;
                 document.getElementById('loggedUserLName').innerText = userData.lastName;
+                
             } else {
                 console.log("ID não encontrado no Documento");
             }

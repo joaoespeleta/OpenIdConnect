@@ -1,99 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: "Poppins", sans-serif;
-            background: linear-gradient(135deg, #EB460A, #00BBFA);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            background-color: #aca3a340;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        h1 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .info {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        .info span {
-            font-weight: 600;
-            color: #333;
-        }
-
-        button {
-            color: #fff;
-            background-color: #1D6DCD;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #F1AF09;
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-                width: 100%;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            button {
-                font-size: 1rem;
-                padding: 8px 16px;
-            }
-        }
-    </style>
-    <script type="module" src="./homepage.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página Inicial</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-    <div class="container">
-        <h1>Bem-vindo à sua conta</h1>
-        <div class="info">Nome: <span id="loggedUserFName"></span></div>
-        <div class="info">Sobrenome: <span id="loggedUserLName"></span></div>
-        <div class="info">E-mail: <span id="loggedUserEmail"></span></div>
-        <button id="logout">Sair</button>
+  <div class="container">
+    <h1 class="form-title">Bem-vindo!</h1>
+    <div id="userInfo">
+      <img id="userPhoto" src="default.jpg" alt="Foto de perfil" width="100" style="border-radius:50%; border: 3px solid #00FFF7;" />
+      <p id="userName" class="neon-text white"></p>
+      <p id="userEmail" class="neon-text-small white"></p>
     </div>
-</body>
+<br>
+    <button id="logoutBtn" class="btn">Sair</button>
+  </div>
 
+  <script type="module">
+    import { getFirestore, doc, getDoc } 
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged, signOut } 
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    import { initializeApp } 
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCPWC4oGYk1wKUd0pMrPGWKSYFv5GfKXus",
+      authDomain: "autenticacao-712a3.firebaseapp.com",
+      projectId: "autenticacao-712a3",
+      storageBucket: "autenticacao-712a3.appspot.com",
+      messagingSenderId: "864513546164",
+      appId: "1:864513546164:web:ac434f7184ce136ca784e1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore();
+
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+    const userPhoto = document.getElementById("userPhoto");
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        userEmail.textContent = user.email;
+
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          userName.textContent = `${data.firstName || ""} ${data.lastName || ""}`.trim();
+          userPhoto.src = data.photoURL || "default.jpg";
+        } else {
+          userName.textContent = "Usuário sem nome";
+          userPhoto.src = "default.jpg";
+        }
+
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
 </html>

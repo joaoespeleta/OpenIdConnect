@@ -1,12 +1,14 @@
+/* Reset básico */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Corpo da página */
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #EB460A, #00BBFA);
+    background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,22 +16,39 @@ body {
     padding: 20px;
 }
 
+/* Container comum */
 .container {
-    background-color: #f2f1f140;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
+    background: rgba(40, 40, 50, 0.85);
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 0 12px rgba(100, 150, 200, 0.2);
+    max-width: 380px;
     width: 100%;
+    text-align: center;
+    backdrop-filter: blur(8px);
+}
+
+/* Títulos */
+.form-title {
+    font-size: 1.9rem;
+    margin-bottom: 20px;
+    color: #b0c4d8;
+    text-shadow: 0 0 4px #b0c4d8, 0 0 8px #7f8c9d;
+}
+.white{
+    color: white;
+}
+
+/* Mensagens de erro ou alerta */
+.messageDiv {
+    padding: 10px;
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
     text-align: center;
 }
 
-.form-title {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #333;
-}
-
+/* Input Groups */
 .input-group {
     position: relative;
     margin-bottom: 20px;
@@ -39,15 +58,18 @@ body {
 .input-group input {
     width: 100%;
     padding: 12px 40px;
-    border: 1px solid #ccc;
+    border: 1px solid #5a5a6b;
     border-radius: 25px;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    background: #2e2e3d;
+    color: #e0e6f0;
+    transition: border-color 0.3s, background 0.3s;
 }
 
 .input-group input:focus {
-    border-color: #1D6DCD;
+    border-color: #7f8c9d;
     outline: none;
+    background: #3a3a4b;
 }
 
 .input-group label {
@@ -56,7 +78,7 @@ body {
     left: 40px;
     transform: translateY(-50%);
     font-size: 0.9rem;
-    color: #888;
+    color: #a0a8b0;
     transition: all 0.3s;
 }
 
@@ -65,8 +87,8 @@ body {
     top: -10px;
     left: 15px;
     font-size: 0.8rem;
-    color: #ccc;
-    background-color: #00000000;
+    color: #c0c8d0;
+    background-color: rgba(40,40,50,0.85);
     padding: 0 5px;
 }
 
@@ -75,88 +97,78 @@ body {
     top: 50%;
     left: 15px;
     transform: translateY(-50%);
-    color: #888;
+    color: #7f8c9d;
 }
 
+/* Botões principais */
 .btn {
-    background-color: #1D6DCD;
-    color: #fff;
+    background-color: #5f6a7d;
+    color: #e0e6f0;
     padding: 12px 20px;
     border: none;
-    border-radius: 25px;
-    font-size: 1.1rem;
+    border-radius: 22px;
+    font-size: 1.05rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: all 0.3s;
     width: 100%;
+    box-shadow: 0 0 6px rgba(95, 106, 125, 0.3);
 }
 
 .btn:hover {
-    background-color: #F1AF09;
-    transform: scale(1.05);
+    background-color: #788699;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(120, 134, 153, 0.4);
 }
 
-.icons {
-    margin-top: 20px;
-}
-
-.icons i {
-    font-size: 1.5rem;
-    color: #1D6DCD;
-    margin: 0 10px;
+/* Botão Google */
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #3c4043;
+    color: #e0e6f0;
+    border: none;
+    border-radius: 22px;
+    padding: 10px 15px;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.3s;
 }
 
-.icons i:hover {
-    color: #F1AF09;
+.google-btn:hover {
+    background-color: #555b63;
 }
 
-.links {
-    margin-top: 20px;
-}
-
-.links p {
-    margin-bottom: 10px;
-    color: #555;
+/* Links e recuperação de senha */
+.links p, .recover a {
+    color: #c0c8d0;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
 }
 
 .links button {
     background: none;
     border: none;
-    color: #1D6DCD;
+    color: #7f8c9d;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s;
 }
 
-.links button:hover {
-    color: #F1AF09;
+.links button:hover, .recover a:hover {
+    color: #c0c8d0;
 }
 
-.recover a {
-    color: #1D6DCD;
-    font-size: 0.9rem;
-    text-decoration: none;
-}
-
-.recover a:hover {
-    text-decoration: underline;
-}
-
-.messageDiv {
-    padding: 10px;
-    color: red;
-    font-size: 0.9rem;
-}
-
+/* Responsividade */
 @media (max-width: 600px) {
     .container {
-        padding: 20px;
+        padding: 25px;
     }
 
     .form-title {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
 
     .input-group input {
@@ -167,7 +179,7 @@ body {
         font-size: 1rem;
     }
 
-    .icons i {
-        font-size: 1.2rem;
+    .google-btn {
+        font-size: 0.85rem;
     }
 }
